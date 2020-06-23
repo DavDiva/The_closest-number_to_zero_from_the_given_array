@@ -4,7 +4,9 @@ void showArray (int *arr, int size)
 {
 	for (int i = 0; i < size; i++)
 	{
+			
 		cout << arr[i] << " ";
+	
 	}
 	cout << endl;
 }
@@ -36,7 +38,7 @@ int arrayMax(int* arr, const int size)
 
 int main()
 {
-	int array[]{ -45, -16, 31, 0, 2, -8, 8, 5, -6, -3};
+	int array[]{ 45, -16, 31, -9, 2, 8, 8, 5, 6, -3, 2};
 	int positive = 0;
 	int negative = 0;
 	const int size = sizeof(array) / sizeof(array[0]);
@@ -51,67 +53,122 @@ int main()
 			negative++;
 		}
 	}
-	/*cout << positive << endl;
-	cout << negative << endl;*/
-	int* arrayPos = new int[positive];
-	int* arrayNeg = new int[negative];
-	for (int j = 0; j < negative; j++)
+	
+	
+	if (positive == 0 && negative>0) 
 	{
-		for (int i = 0; i < size; i++)
-		{
+		int* arrayNeg = new int[negative];
+		for (int j = 0; j < negative; j++)
+	    {
+		  for (int i = 0; i < size; i++)
+		  {
 			if (array[i] < 0)
 			{
 				arrayNeg[j] = array[i];
 				j++;
 			}
 			
-		}
+		   }
+	    }
+
+		int maxN = arrayMax(arrayNeg, negative);
+		cout <<"The closest to zero is: "<< maxN << endl;
+		
+		delete[] arrayNeg;
+		arrayNeg = nullptr;
 	}
-	for (int j = 0; j < positive; j++)
+	else if (negative == 0 && positive>0)
 	{
-		for (int i = 0; i < size; i++)
-		{
+		int* arrayPos = new int[positive];
+		for (int j = 0; j < positive; j++)
+	    {
+		  for (int i = 0; i < size; i++)
+		  {
 			if (array[i] >= 0)
 			{
 				arrayPos[j] = array[i];
 				j++;
 			}
 			
-		}
+		  }
+	    }
+
+		int minP = arrayMin(arrayPos, positive);
+		cout << "The closest to zero is: " << minP << endl;
+		delete[] arrayPos;
+		arrayPos = nullptr;
+		
 	}
-	cout << "The given numbers are: " << endl;
-	showArray(array, size);
-	cout << "The positve numbers are: " << endl;
-	showArray(arrayNeg, negative);
-	cout << "The negative numbers are: " << endl;
-	showArray(arrayPos, positive);
-	int minP = arrayMin(arrayPos, positive);
-	int maxN = arrayMax(arrayNeg, negative);
-	/*cout << maxN << endl;
-	cout<< minP <<endl;*/
-	cout << "The closest number to 0 is: " << endl;
-	if (abs(maxN) < minP)
-	{
-		cout << maxN << endl;
-	}
-	else if (abs(maxN) == minP)
-	{
-		cout << minP << endl;
-	}
-	else if (minP == 0)
-		cout << minP << endl;
 	else
 	{
-		cout << minP << endl;
+
+		int* arrayPos = new int[positive];
+		int* arrayNeg = new int[negative];
+		for (int j = 0; j < negative; j++)
+		{
+			for (int i = 0; i < size; i++)
+			{
+				if (array[i] < 0)
+				{
+					arrayNeg[j] = array[i];
+					j++;
+				}
+
+			}
+		}
+		for (int j = 0; j < positive; j++)
+		{
+			for (int i = 0; i < size; i++)
+			{
+				if (array[i] >= 0)
+				{
+					arrayPos[j] = array[i];
+					j++;
+				}
+
+			}
+		}
+		cout << "The given numbers are: " << endl;
+		showArray(array, size);
+		cout << "The positve numbers are: " << endl;
+		showArray(arrayPos, positive);
+		cout << "The negative numbers are: " << endl;
+		showArray(arrayNeg, negative);
+		int minP = arrayMin(arrayPos, positive);
+		int maxN = arrayMax(arrayNeg, negative);
+		cout << "The closest number to 0 is: " << endl;
+		if (abs(maxN) < minP)
+		{
+			cout << maxN << endl;
+		}
+		else if (abs(maxN) > minP)
+		{
+			cout << minP << endl;
+		}
+		else if (abs(maxN) == minP)
+		{
+			cout << minP << endl;
+		}
+		else if (minP == 0)
+			cout << minP << endl;
+		else
+		{
+			cout << "Another unexpected case." << endl;
+		}
+
+
+
+		delete[] arrayPos;
+		delete[] arrayNeg;
+		arrayPos = nullptr;
+		arrayNeg = nullptr;
+
+
+
 	}
 
-
-
-	delete[] arrayPos;
-	delete[] arrayNeg;
-	arrayPos = nullptr;
-	arrayNeg = nullptr;
-
+	
+	return 0;
 	
 }
 	
